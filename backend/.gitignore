@@ -1,0 +1,24 @@
+node_modules/
+
+out/
+dist/
+.DS_Store
+.env*
+.npmrc
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor config
+.idea/
+.vscode/
+
+# System files
+Thumbs.db
