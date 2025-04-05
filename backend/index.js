@@ -6,11 +6,13 @@ import { dirname } from "path";
 
 dotenv.config();
 
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.get("/", (req, res) => {
+  res.send("API del Sistema de Reservas funcionando");
+});
 
 app.listen(PORT, () => {
-    console.log(`Server corriendo en puerto${PORT}`);
-})
+  console.log(`Server corriendo en puerto${PORT}`);
+});
