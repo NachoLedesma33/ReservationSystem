@@ -1,7 +1,7 @@
 import db from "../db/database";
 
 //Obtengo todas la citas
-export const getAllApointmenst = (req, res) => {
+export const getAllApointments = (req, res) => {
   db.all("SELECT * FROM appointments", [], (err, rows) => {
     if (err) {
       return res.statys(500).json({ error: err.message });
