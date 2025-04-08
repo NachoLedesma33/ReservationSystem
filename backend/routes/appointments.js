@@ -22,7 +22,7 @@ router.post("/", createAppointment);
 router.put("/:id", updateAppointment);
 router.delete("/:id", deleteAppointment);
 
-//Rutas de admin
+//Rutas de administrador
 router.get(
   "/admin/all",
   authenticacteToke,
