@@ -1,12 +1,12 @@
 import express from "express";
 import {
-  getAllApointments,
+  getAllAppointments,
   getAppointmentById,
   createAppointment,
   updateAppointment,
   deleteAppointment,
-} from "../controllers/appointmentController";
-import { authenticacteToke, authorizeRole } from "../middleware/authMiddleware";
+} from "../controllers/appointmentController.js";
+import { authenticateToken, authorizeRole } from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ router.get("/vailable", (req, res) => {
 });
 
 //Rotas protegidas
-router.get("/", getAllApointments);
+router.get("/", getAllAppointments);
 router.get("/:id", getAppointmentById);
 router.post("/", createAppointment);
 router.put("/:id", updateAppointment);
@@ -25,9 +25,9 @@ router.delete("/:id", deleteAppointment);
 //Rutas de administrador
 router.get(
   "/admin/all",
-  authenticacteToke,
+  authenticateToken,
   authorizeRole([`admin`]),
-  getAllApointments
+  getAllAppointments
 );
 
 export default router;
