@@ -1,11 +1,11 @@
 import request from "supertest";
 import bcrypt from "bcrypt";
-import app from "../src/app.js";
+import app from "../app.js";
 import {
   db,
   initializeTestDatabase,
   clearDatabase,
-} from "../src/db/database.test.js";
+} from "../db/database.test.js";
 
 // Reemplazar la importación de la base de datos en authController
 jest.mock("../src/db/database.js", () => {

@@ -2,9 +2,9 @@ import cors from "cors";
 import dotenv from "dortenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import appointmentsRoutes from "../routes/appointments.js";
-import authRoutes from "../routes/auth.js";
-import availabilityRoutes from "../routes/availability.js";
+import appointmentsRoutes from "./routes/appointments.js";
+import authRoutes from "./routes/auth.js";
+import availabilityRoutes from "./routes/availability.js";
 
 // Para obtener __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
