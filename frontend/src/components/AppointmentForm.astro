@@ -1,0 +1,77 @@
+---
+interface Props {
+  onSubmit?: (appointment: {
+    title: string;
+    description: string;
+    date: Date;
+    time: string;
+    duration: number;
+  }) => void;
+}
+
+const { onSubmit } = Astro.props;
+---
+
+<form class="space-y-4" id="appointment-form">
+  <div>
+    <label for="title">Título</label>
+    <input type="text" id="title" name="title" required />
+  </div>
+
+  <div>
+    <label for="description">Descripción</label>
+    <textarea id="description" name="description"></textarea>
+  </div>
+
+  <div>
+    <label for="date">Fecha</label>
+    <input type="date" id="date" name="date" required />
+  </div>
+
+  <div>
+    <label for="time">Hora</label>
+    <input type="time" id="time" name="time" required />
+  </div>
+
+  <div>
+    <label for="duration">Duración (minutos)</label>
+    <input type="number" id="duration" name="duration" required />
+  </div>
+
+  <button type="submit">Crear Cita</button>
+</form>
+
+<script is:inline type="module">
+  const form = document.getElementById("appointment-form");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const date = formData.get("date");
+    const time = formData.get("time");
+    const duration = Number(formData.get("duration"));
+
+    if (
+      typeof title !== "string" ||
+      typeof description !== "string" ||
+      typeof date !== "string" ||
+      typeof time !== "string" ||
+      isNaN(duration)
+    ) {
+      console.error("Formulario inválido");
+      return;
+    }
+
+    const appointment = {
+      title,
+      description,
+      date: new Date(date),
+      time,
+      duration,
+    };
+
+    console.log("Cita creada:", appointment);
+  });
+</script>
