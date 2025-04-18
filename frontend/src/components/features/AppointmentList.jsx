@@ -11,7 +11,6 @@ export default function AppointmentList({
   const [appointments, setAppointments] = useState(initialAppointments);
   const [loading, setLoading] = useState(false);
 
-  // Opcional: Cargar las citas desde la API al montar el componente
   useEffect(() => {
     if (initialAppointments.length === 0) {
       refreshAppointments();
