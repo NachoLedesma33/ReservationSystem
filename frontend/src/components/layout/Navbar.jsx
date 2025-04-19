@@ -1,100 +1,129 @@
 import React, { useState, useEffect } from "react";
-import MuithemeProvider from "./ThemeProvider";
+import { useNavigate } from "react-router-dom";
+import MUIThemeProvider from "./ThemeProvider";
 import {
   AppBar,
   Toolbar,
   Typography,
   Button,
-  Box,
   IconButton,
   Menu,
   MenuItem,
+  Box,
   Avatar,
 } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function Navbar() {
-  const [inLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [username, setUsername] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
+
     if (token) {
-      setLoggedIn(true);
-      try {
-        const userData = JSON.parse(username);
-        setUsername(userData.username);
-      } catch (error) {
-        console.error("Error obteniendo usuario", error);
+      setIsLoggedIn(true);
+      if (user) {
+        try {
+          const userData = JSON.parse(user);
+          setUsername(userData.name || "");
+        } catch (e) {
+          console.error("Error parsing user data", e);
+        }
       }
     }
   }, []);
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    setLoggedIn(false);
+    setIsLoggedIn(false);
     handleClose();
-    window.location.href = "/";
+    navigate("/");
   };
-   return (
-    <MuithemeProvider>
-      <AppBar position="static" className="mb-8">
+
+  return (
+    <MUIThemeProvider>
+      <AppBar position="static" sx={{ mb: 4 }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button color="inherit" href="/" className="text-xl">
+            <Button
+              color="inherit"
+              onClick={() => navigate("/")}
+              sx={{ fontSize: "1.25rem" }}
+            >
               Sistema de Reservas
             </Button>
           </Typography>
-          
-          {!inLoggedIn ? (
+
+          {!isLoggedIn ? (
             <Box>
-              <Button color="inherit" href="/login">Iniciar Sesión</Button>
-              <Button color="inherit" variant="outlined" className="ml-2" href="/register">Registrarse</Button>
+              <Button color="inherit" onClick={() => navigate("/login")}>
+                Iniciar Sesión
+              </Button>
+              <Button
+                color="inherit"
+                variant="outlined"
+                sx={{ ml: 2 }}
+                onClick={() => navigate("/register")}
+              >
+                Registrarse
+              </Button>
             </Box>
           ) : (
-            <Box>
-              <Button color="inherit" href="/appointments">Mis Citas</Button>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Button color="inherit" onClick={() => navigate("/appointments")}>
+                Mis Citas
+              </Button>
               <IconButton
-                aria-label="account of current user"
+                aria-label="menu de usuario"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                sx={{ ml: 2 }}
               >
-                <Avatar className="bg-indigo-800">
-                  {username.charAt(0).toUpperCase()}
+                <Avatar sx={{ bgcolor: "primary.dark" }}>
+                  {username ? (
+                    username.charAt(0).toUpperCase()
+                  ) : (
+                    <AccountCircleIcon />
+                  )}
                 </Avatar>
               </IconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={() => { handleClose(); window.location.href = '/profile'; }}>Mi Perfil</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    navigate("/profile");
+                  }}
+                >
+                  Mi Perfil
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
               </Menu>
             </Box>
           )}
         </Toolbar>
       </AppBar>
-    </MuithemeProvider>
+    </MUIThemeProvider>
   );
 }
-
