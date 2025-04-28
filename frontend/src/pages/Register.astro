@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import RegisterForm from "../components/features/RegisterForm.jsx";
+---
+
+<Layout title="Registro - Sistema de Reservas">
+  <div class="container mx-auto px-4 py-12 max-w-md">
+    <h1 class="text-3xl font-bold mb-8 text-center">Crear una cuenta</h1>
+    <RegisterForm client:load />
+    <div class="mt-6 text-center">
+      <p>
+        ¿Ya tienes una cuenta? <a
+          href="/login"
+          class="text-indigo-600 hover:underline">Iniciar Sesión</a
+        >
+      </p>
+    </div>
+  </div>
+</Layout>
