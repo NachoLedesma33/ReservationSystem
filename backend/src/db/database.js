@@ -36,7 +36,7 @@ const initDB = () => {
     if (err) {
       console.error("Error initializing database:", err);
     } else {
-      console.log("Database initialized successfully");
+      console.log("✅ Database initialized successfully");
     }
   });
 };

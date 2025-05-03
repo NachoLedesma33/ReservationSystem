@@ -4,9 +4,9 @@ import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
-import appointmentRoutes from "../routes/appointments.js";
-import authRoutes from "../routes/auth.js";
-import availabilityRoutes from "../routes/availability.js";
+import appointmentRoutes from "./routes/appointments.js";
+import authRoutes from "./routes/auth.js";
+import availabilityRoutes from "./routes/availability.js";
 
 // Para obtener __dirname en ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -33,5 +33,5 @@ app.get("/", (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+  console.log(`🚀 Servidor corriendo en el puerto ${PORT}`);
 });
