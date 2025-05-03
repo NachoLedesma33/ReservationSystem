@@ -8,7 +8,7 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
-import MUIThemeProvider from "../layout/ThemeProvider";
+import MUIThemeProvider from "../ui/ThemeProvider";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { api } from "../../utils/api";
 

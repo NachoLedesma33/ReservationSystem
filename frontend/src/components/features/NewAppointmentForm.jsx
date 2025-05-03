@@ -12,7 +12,7 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import MUIThemeProvider from "../layout/ThemeProvider";
+import MUIThemeProvider from "../ui/ThemeProvider";
 import { api } from "../../utils/api";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";

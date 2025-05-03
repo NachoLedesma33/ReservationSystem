@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
-import MUIThemeProvider from "../layout/ThemeProvider";
+import MUIThemeProvider from "../ui/ThemeProvider";
 
 export default function HeroSection() {
   return (

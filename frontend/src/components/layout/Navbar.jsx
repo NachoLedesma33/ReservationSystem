@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MUIThemeProvider from "./ThemeProvider";
+import MUIThemeProvider from "../ui/ThemeProvider";
 import {
   AppBar,
   Toolbar,
