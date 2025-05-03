@@ -1,5 +1,3 @@
-import React from "react";
-import { Button, CircularProgress, Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { Button, CircularProgress, Box, Typography, Grid } from "@mui/material";
 import AppointmentCard from "../ui/AppointmentCard";
