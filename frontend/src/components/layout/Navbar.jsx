@@ -1,18 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import MUIThemeProvider from "../ui/ThemeProvider";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Box,
-  Avatar,
-} from "@mui/material";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { UserCircle, LogOut } from "lucide-react";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -49,81 +37,64 @@ export default function Navbar() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setIsLoggedIn(false);
-    handleClose();
-    navigate("/");
+    setAnchorEl(null);
+    navigate("/login");
   };
 
   return (
-    <MUIThemeProvider>
-      <AppBar position="static" sx={{ mb: 4 }}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Button
-              color="inherit"
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <span
+              className="text-xl font-bold text-blue-600 cursor-pointer"
               onClick={() => navigate("/")}
-              sx={{ fontSize: "1.25rem" }}
             >
-              Sistema de Reservas
-            </Button>
-          </Typography>
+              Reservas
+            </span>
+          </div>
 
-          {!isLoggedIn ? (
-            <Box>
-              <Button color="inherit" onClick={() => navigate("/login")}>
-                Iniciar Sesión
-              </Button>
-              <Button
-                color="inherit"
-                variant="outlined"
-                sx={{ ml: 2 }}
-                onClick={() => navigate("/register")}
-              >
-                Registrarse
-              </Button>
-            </Box>
-          ) : (
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Button color="inherit" onClick={() => navigate("/appointments")}>
-                Mis Citas
-              </Button>
-              <IconButton
-                aria-label="menu de usuario"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                sx={{ ml: 2 }}
-              >
-                <Avatar sx={{ bgcolor: "primary.dark" }}>
-                  {username ? (
-                    username.charAt(0).toUpperCase()
-                  ) : (
-                    <AccountCircleIcon />
-                  )}
-                </Avatar>
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                transformOrigin={{ vertical: "top", horizontal: "right" }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem
-                  onClick={() => {
-                    handleClose();
-                    navigate("/profile");
-                  }}
+          <div className="flex items-center">
+            {isLoggedIn ? (
+              <div className="relative">
+                <button
+                  onClick={handleMenu}
+                  className="flex items-center space-x-2 focus:outline-none"
                 >
-                  Mi Perfil
-                </MenuItem>
-                <MenuItem onClick={handleLogout}>Cerrar Sesión</MenuItem>
-              </Menu>
-            </Box>
-          )}
-        </Toolbar>
-      </AppBar>
-    </MUIThemeProvider>
+                  <UserCircle className="h-8 w-8 text-gray-600" />
+                  <span className="text-gray-700">{username || "Usuario"}</span>
+                </button>
+                {anchorEl && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Cerrar sesión
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex space-x-4">
+                <button
+                  onClick={() => navigate("/login")}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600"
+                >
+                  Iniciar sesión
+                </button>
+                <button
+                  onClick={() => navigate("/register")}
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                >
+                  Registrarse
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
